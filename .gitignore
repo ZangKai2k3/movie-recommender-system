@@ -1,0 +1,32 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Môi trường và biến bí mật
+.env
+.env.local
+.env.*.local
+
+# Cơ sở dữ liệu cục bộ
+*.db
+*.sqlite3
+
+# Dữ liệu thu thập và log
+logs/
+*.log
+.pytest_cache/
+
+# Môi trường ảo & IDE
+.venv/
+venv/
+ENV/
+.vscode/
+.idea/
+.DS_Store
+
+# Frontend build & dependencies
+frontend/node_modules/
+frontend/build/
+

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # 1. Backend Service: FastAPI + SQLAlchemy (SQLite) + Recommendation Engine
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: htgoiyphim_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount thư mục data để lưu giữ CSDL SQLite và file dữ liệu phim bền vững
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - JWT_SECRET_KEY=htgoiyphim_super_secret_jwt_key_production_2026_advanced_systems_secure
+    networks:
+      - htgoiyphim_network
+
+  # 2. Frontend Service: ReactJS SPA served by Nginx Production with Reverse Proxy
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: htgoiyphim_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - htgoiyphim_network
+
+networks:
+  htgoiyphim_network:
+    driver: bridge
+
